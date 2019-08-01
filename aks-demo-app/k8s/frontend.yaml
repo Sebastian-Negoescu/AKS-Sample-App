@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sessionbrowser-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sessions
+      tier: frontend
+  template:
+    metadata:
+      name: sessions-spa
+      labels:
+        app: sessions
+        tier: frontend
+    spec:
+      containers:
+        - name: sessionbrowser
+          image: thhdemo.azurecr.io/sessionbrowser:latest
+          ports:
+            - containerPort: 80
+          resources:    
+            requests:
+              memory: "0.2G"
+              cpu: "0.1"
+            limits:
+              memory: "0.2G"
+              cpu: "0.2"
